@@ -7,6 +7,8 @@ class NotificationViewModel {
       content: notification.content.value,
       category: notification.category,
       recipientId: notification.recipientId,
+      cancelledAt: notification.cancelledAt,
+      readAt: notification.readAt,
     };
   }
 }

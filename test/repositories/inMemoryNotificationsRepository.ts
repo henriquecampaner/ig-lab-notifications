@@ -4,6 +4,10 @@ import { Notification } from 'src/app/entities/notifications';
 class InMemoryNotificationsRepository implements NotificationsRepository {
   public notifications: Notification[] = [];
 
+  listAll(): Promise<Notification[]> {
+    return Promise.resolve(this.notifications);
+  }
+
   findById(notificationId: string): Promise<Notification | null> {
     const notification = this.notifications.find(
       (item) => item.id === notificationId,

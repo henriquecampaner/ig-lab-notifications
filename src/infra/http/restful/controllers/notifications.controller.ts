@@ -10,12 +10,13 @@ import {
 } from '@nestjs/common';
 import { SendNotification } from '@app/useCases/sendNotification';
 import { CreateNotificationBody } from '../dtos/createNotificationBody';
-import { NotificationViewModel } from '../viewModels/notificationViewModel';
+import { NotificationViewModel } from '../../viewModels/notificationViewModel';
 import { CancelNotification } from '@app/useCases/cancelNotification';
 import { ReadNotification } from '@app/useCases/readNotification';
 import { UnreadNotification } from '@app/useCases/unreadNotification';
 import { CountRecipientNotification } from '@app/useCases/countRecipientNotifications';
 import { GetRecipientNotification } from '@app/useCases/getRecipientNotification';
+import { ListAllNotifications } from '@app/useCases/listAllNotifications';
 
 @Controller('notifications')
 export class NotificationsController {
@@ -26,7 +27,13 @@ export class NotificationsController {
     private unreadNotification: UnreadNotification,
     private countRecipientNotification: CountRecipientNotification,
     private getRecipientNotification: GetRecipientNotification,
+    private listAllNotification: ListAllNotifications,
   ) {}
+
+  @Get('/list')
+  async listAll() {
+    return await this.listAllNotification.execute();
+  }
 
   @Post()
   async create(@Body() body: CreateNotificationBody) {

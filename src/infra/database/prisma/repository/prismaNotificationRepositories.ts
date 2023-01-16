@@ -8,6 +8,12 @@ import { PrismaNotificationMapper } from '../mappers/prismaNotificationMapper';
 class PrismaNotificationRepository implements NotificationsRepository {
   constructor(private prisma: PrismaService) {}
 
+  async listAll(): Promise<Notification[]> {
+    const notifications = await this.prisma.notification.findMany();
+
+    return notifications.map(PrismaNotificationMapper.toDomain);
+  }
+
   async findById(notificationId: string): Promise<Notification | null> {
     const notification = await this.prisma.notification.findUnique({
       where: {
